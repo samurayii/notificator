@@ -1,0 +1,117 @@
+{
+    "type": "object",
+    "properties": {
+        "enable": {
+            "type": "boolean",
+            "default": true,
+            "enum": [true, false]
+        },
+        "name": {
+            "type": "string",
+            "default": "telegram",
+            "minLength": 1,
+            "maxLength": 32
+        },
+        "type": {
+            "type": "string",
+            "default": "telegram",
+            "enum": ["telegram"]
+        },
+        "attempts": {
+            "type": "integer",
+            "default": 3,
+            "minimum": 1
+        },
+        "attempt_interval": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1
+        },
+        "timeout": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1
+        },
+        "proxy": {
+            "type": "object",
+            "properties": {
+                "host": {
+                    "type": "string",
+                    "default": "proxy-host",
+                    "minLength": 1,
+                    "maxLength": 256
+                },
+                "protocol": {
+                    "type": "string",
+                    "default": "http",
+                    "enum": ["http","https"]
+                },
+                "port": {
+                    "type": "integer",
+                    "default": 8080,
+                    "minimum": 1,
+                    "maximum": 65535
+                },
+                "auth": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string",
+                            "default": "username",
+                            "minLength": 1,
+                            "maxLength": 64
+                        },
+                        "password": {
+                            "type": "string",
+                            "default": "password",
+                            "minLength": 1,
+                            "maxLength": 64
+                        }
+                    },
+                    "required": [
+                        "username",
+                        "password"
+                    ]
+                }
+            },
+            "required": [
+                "host",
+                "port",
+                "protocol"
+            ]
+        },
+        "chat_id": {
+            "type": "string",
+            "default": "-xxxxxxxxx",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "token": {
+            "type": "string",
+            "default": "-xxxxxxxxx",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "parse_mode": {
+            "type": "string",
+            "default": "Markdown",
+            "enum": ["HTML","Markdown"]
+        },
+        "template": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        }
+    },
+    "required": [
+        "enable",
+        "name",
+        "type",
+        "attempts",
+        "attempt_interval",
+        "timeout",
+        "token",
+        "chat_id",
+        "parse_mode"
+    ]
+}

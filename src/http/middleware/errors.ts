@@ -4,6 +4,8 @@ import { Catalog } from "di-ts-decorators";
 import * as chalk from "chalk";
 
 @Middleware("api-server")
+@Middleware("web-server")
+@Middleware("input-server")
 export class Errors implements IMiddleware {
 
     constructor (

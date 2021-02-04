@@ -11,3 +11,19 @@
     enable = true
     auth = true
     env = "development"
+
+[web]
+    enable = true
+    auth = false
+    [web.static]
+        folder = "src/static"
+
+[input]
+    enable = true
+    auth = false
+    env = "development"
+    [input.parsing]
+        enable = true
+    [input.receivers]
+        [input.receivers.telegraf_json]
+            enable = true

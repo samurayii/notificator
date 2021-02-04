@@ -5,6 +5,8 @@ import { IApiServerConfig } from "../interfaces";
 import * as chalk from "chalk";
 
 @Middleware("api-server")
+@Middleware("web-server")
+@Middleware("input-server")
 export class Authorization implements IMiddleware {
 
     constructor (
@@ -30,7 +32,6 @@ export class Authorization implements IMiddleware {
             this._logger.info(`[${this._app_id}] Authorization enabled`, "dev");
 
             return async (ctx: Context, next: Next) => {
-                
 
                 const authorization = ctx.header["authorization"];
 

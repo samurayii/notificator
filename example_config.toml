@@ -35,3 +35,120 @@
         urlencoded = true               # парсинг данных urlencoded
         json_strict = true              # строгий режим парсинга json
         methods = ["POST"]              # список методов для парсинга
+
+[input]                                 # настройка INPUT API
+    enable = false                      # активация INPUT API
+    auth = false                        # активация авторизации
+    listening = "*:3002"                # настройка слушателя
+    prefix = "/input"                   # префикс
+    proxy = false                       # когда поле заголовка true proxy будут доверенным
+    subdomain_offset = 2                # смещение от поддомена для игнорирования
+    proxy_header = "X-Forwarded-For"    # заголовок IP прокси
+    ips_count = 0                       # максимальное количество IP прочитанное из заголовка прокси, по умолчанию 0 (означает бесконечность)
+    env = "development"                 # среда для сервера koa
+    #keys = []                          # массив подписанных ключей cookie
+    [input.parsing]                     # настройка парсинга (пакет: https://github.com/dlau/koa-body#readme)
+        enable = false                  # активация парсинга
+        encoding = "utf-8"              # кодировка парсинга
+        form_limit = "56kb"             # лимит для форм
+        json_limit = "1mb"              # лимит для json
+        text_limit = "1mb"              # лимит для raw
+        text = true                     # парсинг raw
+        json = true                     # парсинг json
+        multipart = false               # парсинг составных частей
+        include_unparsed = false        # добавить исходное тело запроса в переменную ctx.request.body
+        urlencoded = true               # парсинг данных urlencoded
+        json_strict = true              # строгий режим парсинга json
+        methods = ["POST"]              # список методов для парсинга
+    [input.receivers]                   # настройка приёмника
+        [input.receivers.telegraf_json] # настройка для telegraf_json
+            enable = false              # активация telegraf_json
+            table_tag = "host"          # имя тега значение которого будет использоваться как имя таблицы
+        [input.receivers.triggers]      # настройка для triggers
+            enable = false              # активация triggers
+            db = "triggers"             # имя базы для хранения
+
+[metrics_store]                         # настройка хранилище метрик
+    ttl = 40                            # время жизни записи в секундах     
+    [metrics_store.cleaning]            # настройка очистки записей
+        enable = true                   # активация очистки
+        time_zone = "Europe/Moscow"     # временная зона для cron
+        interval = "1 1 * * * *"        # интервал cron
+
+[store]             # настройка временого хранилища
+    path = "store"  # папка хранения данных       
+    ttl = 86400     # время жизни записей
+
+[handlers]                              # настройка для обработчиков
+    modules_path = "handlers_modules"   # путь к папке хранения модуля
+    settings_path = "handlers_settings" # путь к папке хранения настроек задач
+
+[web]                                   # настройка WEB сервера
+    enable = false                      # активация WEB сервера
+    auth = false                        # активация авторизации
+    listening = "*:3000"                # настройка слушателя
+    prefix = ""                         # префикс
+    proxy = false                       # когда поле заголовка true proxy будут доверенным
+    subdomain_offset = 2                # смещение от поддомена для игнорирования
+    proxy_header = "X-Forwarded-For"    # заголовок IP прокси
+    ips_count = 0                       # максимальное количество IP прочитанное из заголовка прокси, по умолчанию 0 (означает бесконечность)
+    env = "development"                 # среда для сервера koa
+    #keys = []                          # массив подписанных ключей cookie
+    [web.static]                        # настройка статического сервера (пакет: https://github.com/koajs/static)
+        folder = "static"               # папка со статическими файлами
+        maxage = 0                      # время жизни кеша в миллисекундах
+        hidden = false                  # разрешение отдавать скрытые файлы
+        index = "index.html"            # название файла индекса
+        defer = false                   # позволить активировать нижестоящие промежуточное по первым
+        gzip = true                     # gzip сжатие
+        brotli = true                   # автоматическое обслуживание файла brotli
+
+[notifications]                 # настрока оповещений
+    path = "channels"           # папка с отдельным описанием каналов 
+    [[notifications.channels]]  # массив каналов
+        enable = false                          # активация канала
+        name = "telegram"                       # имя канала
+        type = "telegram"                       # тип канала
+        token = "xxxxxxxxxxx"                   # токен бота
+        chat_id = "-xxxxxxxxx"                  # идентификатор чата
+        attempts = 3                            # количество попыток
+        attempt_interval = 10                   # интервал повтора попытки при неудачи
+        timeout = 10                            # время запроса в секундах
+        parse_mode = "markdown"                 # тип сообщения (markdown|html)
+        #template = ""                          # путь к шаблону в формате handlebars (НЕ ОБЯЗАТЕЛЬНО)
+        [notifications.channels.proxy]          # настройки прокси (НЕ ОБЯЗАТЕЛЬНО)
+            protocol = "http"                   # протокол (http|https)
+            host = '127.0.0.1'                  # адрес прокси сервера
+            port = 9000                         # порт прокси сервера
+            [notifications.channels.proxy.auth] # авторизация для прокси сервера (НЕ ОБЯЗАТЕЛЬНО)
+                username = 'mikeymike'          # пользователь прокси
+                password = 'rapunz3l'           # пароль к прокси
+    [[notifications.channels]]              # список выходов
+        enable = false                      # активация канала
+        name = "email"                      # имя канала
+        type = "email"                      # тип канала
+        host = "smtp.localhost"             # адрес сервера
+        port = 465                          # порт сервера
+        from = "alarmist@localhost.com"     # почта отправителя, по умолчанию
+        to = ""                             # адресаты, по умолчанию
+        #cc = ""                            # адресаты для копии, по умолчанию (НЕ ОБЯЗАТЕЛЬНО)
+        #bcc = ""                           # адресаты для скрытой копии, по умолчанию (НЕ ОБЯЗАТЕЛЬНО)
+        subject = "empty"                   # тема письма, по умолчанию
+        secure = false                      # использовать TLS
+        ignore_tls = false                  # игнорировать TLS сервера
+        attempts = 3                        # количество попыток
+        attempt_interval = 10               # интервал повтора попытки при неудачи
+        parse_mode = "text"                 # тип письма (Text или HTML)
+        #template = ""                      # путь к шаблону в формате handlebars (НЕ ОБЯЗАТЕЛЬНО)
+        [notifications.channels.auth]                                       # авторизация для прокси сервера (НЕ ОБЯЗАТЕЛЬНО)
+            type = "login"                                                  # тип авторизации (login или oauth2)
+            username = "mikeymike"                                          # пользователь прокси
+            password = "rapunz3l"                                           # пароль к прокси
+            client_id = "000000000000-xxx0.apps.googleusercontent.com"      # идентификатор клиента, только oauth2 (НЕ ОБЯЗАТЕЛЬНО)
+            client_secret = "XxxxxXXxX0xxxxxxxx0XXxX0"                      # секрет, только oauth2 (НЕ ОБЯЗАТЕЛЬНО)
+            refresh_token = "1/XXxXxsss-xxxXXXXXxXxx0XXXxxXXx0x00xxx"       # токен обновление, только oauth2 (НЕ ОБЯЗАТЕЛЬНО)
+            access_token = "ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x"           # токен доступа, только oauth2 (НЕ ОБЯЗАТЕЛЬНО)
+            expires = 1484314697598                                         # время устаревания токена, только oauth2 (НЕ ОБЯЗАТЕЛЬНО)
+            access_url = "xxxxxx"                                           # путь доступа
+            service_client = "113600000000000000000"                        # идентификатор клиента сервиса
+            private_key = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg..."  # сертификат

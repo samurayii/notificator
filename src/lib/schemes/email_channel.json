@@ -1,0 +1,161 @@
+{
+    "type": "object",
+    "properties": {
+        "enable": {
+            "type": "boolean",
+            "default": true,
+            "enum": [true, false]
+        },
+        "name": {
+            "type": "string",
+            "default": "email",
+            "minLength": 1,
+            "maxLength": 32
+        },
+        "output_type": {
+            "type": "string",
+            "default": "email",
+            "enum": ["email"]
+        },
+        "attempts": {
+            "type": "integer",
+            "default": 3,
+            "minimum": 1
+        },
+        "attempt_interval": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1
+        },
+        "auth": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "default": "login",
+                    "enum": ["login","oauth2"]
+                },
+                "username": {
+                    "type": "string",
+                    "default": "username",
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "password": {
+                    "type": "string",
+                    "default": "password",
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "client_secret": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "refresh_token": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "access_token": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "expires": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "access_url": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "service_client": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "private_key": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": [
+                "username",
+                "password",
+                "type"
+            ]
+        },
+        "parse_mode": {
+            "type": "string",
+            "default": "Text",
+            "enum": ["Text","HTML"]
+        },
+        "template": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "host": {
+            "type": "string",
+            "default": "smtp.localhost",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "port": {
+            "type": "integer",
+            "default": 465,
+            "minimum": 1,
+            "maximum": 65535
+        },
+        "from": {
+            "type": "string",
+            "default": "alarmist@localhost.com",
+            "minLength": 1,
+            "maxLength": 64
+        },
+        "to": {
+            "type": "string",
+            "default": "",
+            "minLength": 0
+        },
+        "сс": {
+            "type": "string",
+            "minLength": 0
+        },
+        "bcc": {
+            "type": "string",
+            "minLength": 0
+        },
+        "subject": {
+            "type": "string",
+            "default": "empty",
+            "minLength": 0
+        },
+        "secure": {
+            "type": "boolean",
+            "default": false,
+            "enum": [true, false]
+        },
+        "ignore_tls": {
+            "type": "boolean",
+            "default": false,
+            "enum": [true, false]
+        }
+    },
+    "required": [
+        "enable",
+        "name",
+        "output_type",
+        "attempts",
+        "attempt_interval",
+        "parse_mode",
+        "host",
+        "port",
+        "from",
+        "to",
+        "subject",
+        "secure",
+        "ignore_tls"
+    ]
+}

@@ -1,3 +1,3 @@
-# Template app.
+# Notificator
 
-template. [Документация](docs/README.md)
+Приложение для анализа метрик и оповещения об аномалиях. [Документация](docs/README.md)

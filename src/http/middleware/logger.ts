@@ -6,6 +6,8 @@ import { IApiServerConfig } from "../interfaces";
 import * as chalk from "chalk";
 
 @Middleware("api-server")
+@Middleware("web-server")
+@Middleware("input-server")
 export class HttpLogger implements IMiddleware {
 
     constructor (

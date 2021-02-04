@@ -1,0 +1,165 @@
+{
+    "type": "object",
+    "properties": {
+        "global": {
+            "type": "boolean",
+            "default": true,
+            "enum": [true, false]
+        },
+        "notifications": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "string",
+                "minLength": 1
+            },
+            "minItems": 0
+        },
+        "enable": {
+            "type": "boolean",
+            "default": true,
+            "enum": [true, false]
+        },
+        "description": {
+            "type": "string",
+            "default": "",
+            "minLength": 0,
+            "maxLength": 1024
+        },
+        "trigger_interval": {
+            "type": "string",
+            "default": "5m",
+            "pattern": "^[0-9]{1}[smhd]{0,1}[0-9smhd]*[mhsd]{1}"
+        },
+        "notification_repeat_interval": {
+            "type": "string",
+            "default": "4h",
+            "pattern": "^[0-9]{1}[smhd]{0,1}[0-9smhd]*[mhsd]{1}"
+        },
+        "ttl": {
+            "type": "string",
+            "default": "1h",
+            "pattern": "^[0-9]{1}[smhd]{0,1}[0-9smhd]*[mhsd]{1}"
+        },
+        "update": {
+            "type": "string",
+            "default": "10m",
+            "pattern": "^[0-9]{1}[smhd]{0,1}[0-9smhd]*[mhsd]{1}"
+        },
+        "cron": {
+            "type": "object",
+            "default": {},
+            "properties": {
+                "time_zone": {
+                    "type": "string",
+                    "default": "Europe/Moscow",
+                    "minLength": 1,
+                    "maxLength": 32
+                },
+                "interval": {
+                    "type": "string",
+                    "default": "*/30 * * * * *",
+                    "pattern": "^.* .* .* .* .* .*$"
+                }
+            },
+            "required": [
+                "time_zone",
+                "interval"
+            ]
+        },
+        "query": {
+            "type": "object",
+            "default": {},
+            "properties": {
+                "db": {
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        },
+                        "regexp": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        },
+                        "regexp_all": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        }
+                    },
+                    "required": []
+                },
+                "table": {
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        },
+                        "regexp": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        },
+                        "regexp_all": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        }
+                    },
+                    "required": []
+                },
+                "record": {
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        },
+                        "regexp": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        },
+                        "regexp_all": {
+                            "type": "string",
+                            "minLength": 0,
+                            "maxLength": 256
+                        }
+                    },
+                    "required": []
+                }
+            },
+            "required": [
+                "db",
+                "table",
+                "record"
+            ]
+        },
+        "handler": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 256
+        }
+    },
+    "required": [
+        "global",
+        "enable",
+        "query",
+        "handler",
+        "description",
+        "ttl",
+        "update",
+        "cron",
+        "notifications",
+        "notification_repeat_interval"
+    ]
+}

@@ -5,6 +5,7 @@ import { IApiServerConfig } from "../interfaces";
 import * as chalk from "chalk";
 
 @Middleware("api-server")
+@Middleware("input-server")
 export class Healthcheck implements IMiddleware {
 
     private readonly _start_time: number
