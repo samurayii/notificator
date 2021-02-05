@@ -15,8 +15,6 @@
 [web]
     enable = true
     auth = false
-    [web.static]
-        folder = "src/static"
 
 [input]
     enable = true
