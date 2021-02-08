@@ -99,7 +99,7 @@ export class UIMetrics {
     @Get("/", "web-server")
     @Get("/index.html", "web-server")
     async index (ctx: Context): Promise<void> {
-
+        
         ctx.body = await getBody(this._template_path, {
             prefix: `${ctx.koad.config.prefix.replace(/\/$/gi, "")}`,
             dbs: this._metrics_store.dbs

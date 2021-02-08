@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="{{prefix}}/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="{{prefix}}/css/bootstrap.min.css" >
+        <link rel="shortcut icon" href="{{prefix}}/static/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="{{prefix}}/static/css/bootstrap.min.css" >
         <title>Notificator</title>
     </head>
     <body>
@@ -13,11 +13,11 @@
                 <div class="col">
                     <nav class="navbar navbar-expand navbar-dark bg-dark">
                         <a class="navbar-brand ml-3" href="{{prefix}}/">
-                            <img src="{{prefix}}/avatar.png" width="30" height="30" class="d-inline-block align-top">
+                            <img src="{{prefix}}/static/avatar.png" width="30" height="30" class="d-inline-block align-top">
                         </a>
                         <ul class="navbar-nav ml-4">
                             <li class="flex-fill nav-item ml-2" title="данные">
-                                <a class="nav-link" href="/">
+                                <a class="nav-link" href="{{prefix}}/">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-server" viewBox="0 0 16 16">
                                         <path d="M1.333 2.667C1.333 1.194 4.318 0 8 0s6.667 1.194 6.667 2.667V4c0 1.473-2.985 2.667-6.667 2.667S1.333 5.473 1.333 4V2.667z"/>
                                         <path d="M1.333 6.334v3C1.333 10.805 4.318 12 8 12s6.667-1.194 6.667-2.667V6.334c-.43.32-.931.58-1.458.79C11.81 7.684 9.967 8 8 8c-1.967 0-3.81-.317-5.21-.876a6.508 6.508 0 0 1-1.457-.79z"/>
@@ -27,7 +27,7 @@
                                 </a>
                             </li>
                             <li class="flex-fill nav-item ml-2" title="обработчики">
-                                <a class="nav-link active" href="/handlers">
+                                <a class="nav-link active" href="{{prefix}}/handlers">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
                                         <path d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
                                     </svg>
@@ -35,7 +35,7 @@
                                 </a>
                             </li>
                             <li class="flex-fill nav-item ml-2" title="ланалы">
-                                <a class="nav-link" href="/channels">
+                                <a class="nav-link" href="{{prefix}}/channels">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
                                     </svg>

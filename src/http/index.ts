@@ -14,7 +14,6 @@ export * from "./routes/input/telegraf";
 export * from "./routes/ui/metrics";
 export * from "./routes/ui/channels";
 export * from "./routes/ui/handlers";
-
-export * from "./middleware/static";
+export * from "./routes/ui/static";
 
 export * from "./interfaces";

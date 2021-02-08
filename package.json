@@ -1,6 +1,6 @@
 {
     "name": "notificator",
-    "version": "0.1.5",
+    "version": "0.2.5",
     "description": "Analyze metrics and notifications",
     "main": "app.js",
     "docker_image": "samuray/notificator",
@@ -49,6 +49,7 @@
         "@types/koa-helmet": "^6.0.1",
         "@types/koa-logger": "^3.1.1",
         "@types/koa-static": "^4.0.1",
+        "@types/mime-types": "^2.1.0",
         "@types/mocha": "^8.2.0",
         "@types/node": "^14.14.20",
         "@types/node-fetch": "^2.5.8",
@@ -82,9 +83,9 @@
         "koa-body": "^4.2.0",
         "koa-helmet": "^6.0.0",
         "koa-logger": "^3.2.1",
-        "koa-static": "^5.0.0",
         "koa-ts-decorators": "0.0.8",
         "logger-flx": "^0.1.5",
+        "mime-types": "^2.1.28",
         "nodemailer": "^6.4.17",
         "telegraf": "^4.0.1"
     },

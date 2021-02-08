@@ -148,12 +148,7 @@
     #keys = []                          # массив подписанных ключей cookie
     [web.static]                        # настройка статического сервера (пакет: https://github.com/koajs/static)
         folder = "static"               # папка со статическими файлами
-        maxage = 0                      # время жизни кеша в миллисекундах
         hidden = false                  # разрешение отдавать скрытые файлы
-        index = "index.html"            # название файла индекса
-        defer = false                   # позволить активировать нижестоящие промежуточное по первым
-        gzip = true                     # gzip сжатие
-        brotli = true                   # автоматическое обслуживание файла brotli
 
 [notifications]                 # настройка оповещений
     path = "channels"           # папка с отдельным описанием каналов 
@@ -274,12 +269,7 @@
 | web.env | строка | development | среда для сервера [koa](https://www.npmjs.com/package/koa) |
 | web.keys | строка[] |  | массив подписанных ключей cookie |
 | web.static.folder | строка | static | папка со статическими файлами |
-| web.static.maxage | число |  | время жизни кеша в миллисекундах |
 | web.static.hidden | логический | false | разрешение отдавать скрытые файлы |
-| web.static.index | строка | index.html | название файла индекса |
-| web.static.defer | логический | false | позволить активировать нижестоящие промежуточное по первым |
-| web.static.gzip | логический | true | gzip сжатие |
-| web.static.brotli | логический | true | автоматическое обслуживание файла brotli |
 | metrics_store.ttl | число | 40 | время жизни записи в секундах |
 | metrics_store.cleaning.enable | логический | true | активация очистки |
 | metrics_store.cleaning.time_zone | строка | Europe/Moscow | временная зона для cron |
