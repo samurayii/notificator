@@ -50,7 +50,15 @@ export class MetricsStore implements IMetricsStore {
         return this._dbs_list[db_name];
     }
 
+    _escaping (str: string): string {
+        return str.replace(/\\/ig, "_");
+    }
+
     query (db_name: string, table_name: string, record_name: string): IMetricsStoreTableRecord {
+
+        db_name = this._escaping(db_name);
+        table_name = this._escaping(table_name);
+        record_name = this._escaping(record_name);
 
         if (this._dbs_list[db_name] === undefined) {
             return;
@@ -62,6 +70,9 @@ export class MetricsStore implements IMetricsStore {
 
     queryRegExp (db_name: string, table_name: string, regexp: string): IMetricsStoreTableRecord {
 
+        db_name = this._escaping(db_name);
+        table_name = this._escaping(table_name);
+
         if (this._dbs_list[db_name] === undefined) {
             return;
         }
@@ -71,6 +82,9 @@ export class MetricsStore implements IMetricsStore {
     }
 
     queryRegExpAll (db_name: string, table_name: string, regexp: string): IMetricsStoreTableRecord[] {
+
+        db_name = this._escaping(db_name);
+        table_name = this._escaping(table_name);
 
         if (this._dbs_list[db_name] === undefined) {
             return [];
@@ -82,6 +96,10 @@ export class MetricsStore implements IMetricsStore {
 
     update (db_name: string, table_name: string, record_name: string, data: IMetricsStoreTableRecordConfig): void {
 
+        db_name = this._escaping(db_name);
+        table_name = this._escaping(table_name);
+        record_name = this._escaping(record_name);
+
         if (this._dbs_list[db_name] === undefined) {
             this._dbs_list[db_name] = new MetricsStoreDB(db_name, this._config.ttl, this._logger);
             this._logger.log(`[MetricsStore] Created db ${chalk.gray(db_name)}`, "dev");
@@ -91,6 +109,16 @@ export class MetricsStore implements IMetricsStore {
     }
 
     remove (db_name: string, table_name?: string, record_name?: string): void {
+
+        db_name = this._escaping(db_name);
+
+        if (table_name !== undefined) {
+            table_name = this._escaping(table_name);
+        }
+
+        if (record_name !== undefined) {
+            record_name = this._escaping(record_name);
+        }
 
         if (this._dbs_list[db_name] === undefined) {
             return;
@@ -114,6 +142,16 @@ export class MetricsStore implements IMetricsStore {
 
     exist (db_name: string, table_name?: string, record_name?: string): boolean {
 
+        db_name = this._escaping(db_name);
+
+        if (table_name !== undefined) {
+            table_name = this._escaping(table_name);
+        }
+
+        if (record_name !== undefined) {
+            record_name = this._escaping(record_name);
+        }
+
         if (this._dbs_list[db_name] === undefined) {
             return false;
         }
@@ -127,6 +165,14 @@ export class MetricsStore implements IMetricsStore {
     }
 
     clear (db_name?: string, table_name?: string): void {
+
+        if (db_name !== undefined) {
+            db_name = this._escaping(db_name);
+        }
+
+        if (table_name !== undefined) {
+            table_name = this._escaping(table_name);
+        }
 
         if (db_name === undefined) {
 

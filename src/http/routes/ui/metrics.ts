@@ -22,12 +22,12 @@ export class UIMetrics {
         this._template_path = path.resolve(__dirname, "../../templates/index.hbs");
     }  
 
-    @Get("/metrics/:db/:table/:record", "web-server")
+    @Get("/metrics/:db/:table/(.*)", "web-server")
     async metrics_record (ctx: Context): Promise<void> {
 
         const db_name = ctx.params.db;
         const table_name = ctx.params.table;
-        const record_name = ctx.params.record;
+        const record_name = ctx.params[0];
         const db = this._metrics_store.db(db_name);
         const table = db?.table(table_name);
         const record = table?.query(record_name);
