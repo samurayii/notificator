@@ -64,7 +64,7 @@ export class HandlersSubJob implements IHandlersSubJob {
             if (data !== undefined) {
                 this._last_update = Date.now();
             }
-console.log(data);
+
             this.exec(query_record, data);
 
         },
