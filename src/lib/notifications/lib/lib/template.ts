@@ -15,6 +15,12 @@ Handlebars.registerHelper("if_eq", (a, b, opts) => {
     }
 });
 
+export function checkTemplate (template_path: string): void {
+    const template_body = fs.readFileSync(template_path).toString();
+    const template = Handlebars.compile(template_body);
+    template({});
+}
+
 export async function getBody (template_path: string, data: unknown): Promise<string> {
 
     if (template_cache[template_path] === undefined) {

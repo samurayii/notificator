@@ -5,7 +5,7 @@ import * as path from "path";
 import * as chalk from "chalk";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { Telegraf } from "telegraf";
-import { getBody } from "./lib/getBody";
+import { checkTemplate, getBody } from "./lib/template";
 import { Agent } from "https";
 import { ParseMode } from "./types/telegraf";
 
@@ -34,6 +34,14 @@ export class TelegramChannel implements IChannel {
 
         if (fs.existsSync(full_template_path) === false) {
             this._logger.error(`[Notifications] Template file ${chalk.gray(full_template_path)} not found`);
+            process.exit(1);
+        }
+
+        try {
+            checkTemplate(full_template_path);
+        } catch (error) {
+            this._logger.error(`[Notifications] Template file ${chalk.gray(full_template_path)} parse error. Error: ${error.message}`);
+            this._logger.log(error.stack, "debug");
             process.exit(1);
         }
 
