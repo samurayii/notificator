@@ -6,6 +6,9 @@ import { IHandlersJob, IHandlersSubJob } from "../interfaces";
 export class HandlersJobContext {
 
     status: string
+    module: string
+    job: string
+    global: boolean
     success: () => void;
     warning: (data?: unknown) => void;
     nodata: (data?: unknown) => void;
@@ -30,6 +33,9 @@ export class HandlersJobContext {
     ) {
 
         this.status = job.status;
+        this.job = job.id;
+        this.module = job.module;
+        this.global = job.global;
 
         const store = temporary_store.get(job.id);
 

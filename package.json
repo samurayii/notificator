@@ -1,6 +1,6 @@
 {
     "name": "notificator",
-    "version": "0.2.6",
+    "version": "0.3.6",
     "description": "Analyze metrics and notifications",
     "main": "app.js",
     "docker_image": "samuray/notificator",

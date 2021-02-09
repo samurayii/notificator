@@ -133,9 +133,10 @@ module.exports = function () {
 
 ```js
 {
-    id: "asdasd",           // идентификатор задачи
-    handler: "module1",     // имя модуля
-    type: "alert",          // тип сообщения
+    job: "asdasd",          // идентификатор задачи
+    module: "module1",      // имя модуля
+    global: true,           // тип задачи
+    status: "alert",        // тип сообщения
     repeat: false,          // флаг повторения
     timestamp: 213213123,   // время срабатывания
     data: "данные"          // данные пользователя

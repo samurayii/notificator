@@ -19,6 +19,7 @@ export interface IJobJson {
 export interface IHandlersJob {
     readonly id: string
     readonly description: string
+    readonly module: string
     status: string
     readonly staring: boolean
     readonly executing: boolean
@@ -37,6 +38,7 @@ export interface IHandlersJob {
 export interface IHandlersSubJob {
     readonly id: string
     readonly description: string
+    readonly module: string
     status: string
     readonly staring: boolean
     readonly executing: boolean
@@ -44,7 +46,7 @@ export interface IHandlersSubJob {
     readonly json: IJobJson[]
     readonly enable: boolean
     readonly last_update: number
-    exec: (data: unknown) => void
+    exec: (data: unknown, query_record: IQueryRecord) => void
     run: () => Promise<void>
     stop: () => Promise<void>
     alert: (data: unknown) => void
@@ -67,7 +69,7 @@ export interface IHandlersConfig {
 
 export interface IModule {
     readonly id: string
-    exec: (context: unknown, data?: unknown) => void
+    exec: (context: unknown, query_record?: IQueryRecord, data?: unknown) => void
 }
 
 export interface IQuery {

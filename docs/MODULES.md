@@ -68,6 +68,9 @@ update = "5s"                           # интервал обновления 
 | Название | Тип | Пример | Описание |
 | ----- | ----- | ----- | ----- |
 | status | свойство | this.status | текущий статус задачи |
+| job | свойство | this.job | идентификатор задачи |
+| module | свойство | this.module | идентификатор модуля |
+| global | свойство | this.global | тип задачи |
 | alert | метод | this.alert(текст ии объект) | активировать триггер **alert** и отослать сообщение |
 | warning | метод | this.warning(текст ии объект) | активировать триггер **warning** и отослать сообщение |
 | nodata | метод | this.nodata(текст ии объект) | активировать триггер **nodata** и отослать сообщение |
@@ -95,15 +98,44 @@ module.exports = function () {
 ### Пример модуля для динамической задачи
 
 ```js
-module.exports = function (data) { 
+module.exports = function (query_record /*объект запроса*/, data /*данные записи*/) { 
     // в динамическую задачу передаётся результат выборки
     // если данных нет то будет передано undefined
     if (data === undefined) {
-        this.nodata("no data message");
+        this.nodata(`no data message for record ${query_record.record}`);
         return;
     }
+    /*
+        пример data:
+        {
+            fields: {
+                free: 9039560704,
+                inodes_free: 0,
+                inodes_total: 0,
+                inodes_used: 0,
+                total: 1000203833344,
+                used: 991164272640,
+                used_percent: 99.09622814843871
+            },
+            name: 'disk',
+            tags: {
+                device: 'G:',
+                fstype: 'NTFS',
+                host: 'DESKTOP-825QBFA',
+                mode: 'unknown',
+                path: '\\G:'
+            },
+            timestamp: 1612790960000
+        }
+        пример query_record:
+        {
+            db: "cpu",
+            table: "hostname1",
+            record: "cpu0"
+        }
+    */
     if (data.fields.key1 > 100) {
-        this.alert("alert message");
+        this.alert(`alert message for record ${query_record.record}`);
     }
 }
 ```

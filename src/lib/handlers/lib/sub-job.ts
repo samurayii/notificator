@@ -16,11 +16,12 @@ import { IMetricsStore } from "../../metrics-store";
 import { ITemporaryStore } from "../../temporary-store";
 
 type TSendData = {
-    id: string
-    handler: string
+    job: string
+    module: string
+    global: boolean
     timestamp: number
     repeat: boolean
-    type: string
+    status: string
     data: unknown
 };
 
@@ -64,7 +65,7 @@ export class HandlersSubJob implements IHandlersSubJob {
                 this._last_update = Date.now();
             }
 
-            this.exec(data);
+            this.exec(query_record, data);
 
         },
         null,
@@ -81,6 +82,10 @@ export class HandlersSubJob implements IHandlersSubJob {
 
     get id (): string {
         return this._id;
+    }
+
+    get module (): string {
+        return this._module.id;
     }
 
     get description (): string {
@@ -124,7 +129,7 @@ export class HandlersSubJob implements IHandlersSubJob {
         }];
     }
     
-    exec(data: unknown): void {
+    exec(query_record: IQueryRecord, data: unknown): void {
 
         if (this._executing_flag === true || this._config.enable === false) {
             return;
@@ -134,7 +139,7 @@ export class HandlersSubJob implements IHandlersSubJob {
 
         const context = new HandlersJobContext(this, this._metrics_store, this._temporary_store);
 
-        this._module.exec(context, data);
+        this._module.exec(context, query_record, data);
 
         this._executing_flag = false;
 
@@ -159,9 +164,10 @@ export class HandlersSubJob implements IHandlersSubJob {
 
         const now = Date.now();
         const send_data: TSendData = {
-            id: this._id,
-            handler: this._config.handler,
-            type: "alert",
+            job: this._id,
+            module: this._module.id,
+            global: this.global,
+            status: "alert",
             repeat: false,
             timestamp: now,
             data: data
@@ -200,9 +206,10 @@ export class HandlersSubJob implements IHandlersSubJob {
 
         const now = Date.now();
         const send_data: TSendData = {
-            id: this._id,
-            handler: this._config.handler,
-            type: "success",
+            job: this._id,
+            module: this._module.id,
+            global: this.global,
+            status: "success",
             repeat: false,
             timestamp: now,
             data: data
@@ -231,9 +238,10 @@ export class HandlersSubJob implements IHandlersSubJob {
 
         const now = Date.now();
         const send_data: TSendData = {
-            id: this._id,
-            handler: this._config.handler,
-            type: "warning",
+            job: this._id,
+            module: this._module.id,
+            global: this.global,
+            status: "warning",
             repeat: false,
             timestamp: now,
             data: data
@@ -272,9 +280,10 @@ export class HandlersSubJob implements IHandlersSubJob {
 
         const now = Date.now();
         const send_data: TSendData = {
-            id: this._id,
-            handler: this._config.handler,
-            type: "nodata",
+            job: this._id,
+            module: this._module.id,
+            global: this.global,
+            status: "nodata",
             repeat: false,
             timestamp: now,
             data: data
