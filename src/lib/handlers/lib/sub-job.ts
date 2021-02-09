@@ -1,6 +1,7 @@
 
 import { CronJob } from "cron";
 import * as chalk from "chalk";
+import * as clone from "clone";
 import { ILogger } from "logger-flx";
 import { 
     IHandlerJobConfig,
@@ -65,7 +66,7 @@ export class HandlersSubJob implements IHandlersSubJob {
                 this._last_update = Date.now();
             }
 
-            this.exec(query_record, data);
+            this.exec(query_record, clone(data.json));
 
         },
         null,
