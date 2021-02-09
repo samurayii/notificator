@@ -113,7 +113,7 @@ module.exports = function () {
 #### Шаблон по умолчанию
 
 ```txt
-Type: {{type}}, message: {{data}}
+Type: {{status}}, message: {{data}}
 ```
 
 #### Пример данных для шаблона
