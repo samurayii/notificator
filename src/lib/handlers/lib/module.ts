@@ -1,5 +1,5 @@
 import { ILogger } from "logger-flx";
-import { IModule } from "../interfaces";
+import { IModule, IQueryRecord } from "../interfaces";
 import * as chalk from "chalk";
 
 export class Module implements IModule {
@@ -17,10 +17,10 @@ export class Module implements IModule {
         return this._id;
     }
 
-    exec (context: unknown, data?: unknown): void {
+    exec (context: unknown, query_record?: IQueryRecord, data?: unknown): void {
         
         try {
-            this._func.call(context, data);
+            this._func.call(context, query_record, data);
         } catch (error) {
             this._logger.error(`[Handlers] Error exec for ${chalk.gray(this._id)} module. ${error.message}`);
             this._logger.log(error.stack, "debug");
