@@ -15,6 +15,13 @@ Handlebars.registerHelper("if_eq", (a, b, opts) => {
     }
 });
 
+Handlebars.registerHelper("timestamp", (time) => {
+    if (typeof time !== "number") {
+        return "";
+    }
+    return (new Date(time)).toString();
+});
+
 export function checkTemplate (template_path: string): void {
     const template_body = fs.readFileSync(template_path).toString();
     const template = Handlebars.compile(template_body);
