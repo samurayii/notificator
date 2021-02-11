@@ -108,7 +108,16 @@ export class Handlers implements IHandlers {
 
         for (const file_path of settings_files) {
 
-            const job_config: IHandlerJobConfig = <IHandlerJobConfig>json_from_schema(jtomler(file_path), job_config_schema);
+            let job_config: IHandlerJobConfig;
+
+            try {
+                job_config = <IHandlerJobConfig>json_from_schema(jtomler(file_path), job_config_schema);
+            } catch (error) {
+                this._logger.error(`[Handlers] Loading job config from ${file_path}. Error: ${error.message}`);
+                this._logger.error(error.stack);
+                continue;
+            }
+            
             const ajv = new Ajv({
                 strict: false
             });
@@ -119,7 +128,6 @@ export class Handlers implements IHandlers {
                 process.exit(1);
             }
 
-            //const query_config: IQueryConfig = job_config.query;
             const id = file_path.replace(full_settings_path, "").replace(/(^\/|^\\)/,"").replace(/(\.toml|\.yml|\.json)$/,"");
             
             if (modules_list[job_config.handler] === undefined) {

@@ -126,7 +126,7 @@
                 <div class="col">
                 {{#if dbs}}
                     {{#each dbs}}
-                        <ul class="list-group mb-2">
+                        <ul class="list-group mb-1">
                             <a href="{{../prefix}}/metrics/{{this}}" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-2">
@@ -185,7 +185,7 @@
                     {{else}}
                         {{#if table}}
                             {{#each data}}
-                            <ul class="list-group mb-2">
+                            <ul class="list-group mb-1">
                                 <a href="{{../prefix}}/metrics/{{../db}}/{{../table}}/{{this}}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-2">
@@ -201,7 +201,7 @@
                             {{/each}}
                         {{else}}
                             {{#each data}}
-                            <ul class="list-group mb-2">
+                            <ul class="list-group mb-1">
                                 <a href="{{../prefix}}/metrics/{{../db}}/{{this}}" class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-2">
