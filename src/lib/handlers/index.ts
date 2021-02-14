@@ -93,6 +93,14 @@ export class Handlers implements IHandlers {
             const func = await import(file_path);       
             const module = new Module(id, func, this._logger);
 
+            try {
+                module.check();
+            } catch (error) {
+                this._logger.error(`[Handlers] Error check module ${chalk.gray(id)}. Error: ${error.message}`);
+                this._logger.log(error.stack, "debug");
+                continue;
+            }
+
             modules_list[id] = module;
 
         }
@@ -113,7 +121,7 @@ export class Handlers implements IHandlers {
             try {
                 job_config = <IHandlerJobConfig>json_from_schema(jtomler(file_path), job_config_schema);
             } catch (error) {
-                this._logger.error(`[Handlers] Loading job config from ${file_path}. Error: ${error.message}`);
+                this._logger.error(`[Handlers] Loading job config from ${chalk.grey(file_path)}. Error: ${error.message}`);
                 this._logger.error(error.stack);
                 continue;
             }

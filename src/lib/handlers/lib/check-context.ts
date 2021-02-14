@@ -1,9 +1,6 @@
-import * as clone from "clone";
-import { ITemporaryStore } from "../../temporary-store";
-import { IMetricsStore } from "../../metrics-store";
-import { IHandlersJob, IHandlersSubJob } from "../interfaces";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-export class HandlersJobContext {
+export class HandlersJobCheckContext {
 
     status: string
     module: string
@@ -27,85 +24,62 @@ export class HandlersJobContext {
         update: (record_name:string, data: unknown) => void
     }
 
-    constructor (
-        job: IHandlersJob | IHandlersSubJob,
-        metrics_store: IMetricsStore,
-        temporary_store: ITemporaryStore
-    ) {
+    constructor () {
 
-        this.status = job.status;
-        this.job = job.id;
-        this.module = job.module;
-        this.global = job.global;
-
-        const store = temporary_store.get(job.id);
+        this.status = "success";
+        this.job = "check-id";
+        this.module = "check-module";
+        this.global = false;
 
         this.success = (data: unknown = "") => {
-            job.success(data);
+            return;
         };
 
         this.nodata = (data: unknown = "") => {
-            job.nodata(data);
+            return;
         };
 
         this.warning = (data: unknown = "") => {
-            job.warning(data);
+            return;
         };
 
         this.alert = (data: unknown = "") => {
-            job.alert(data);
+            return;
         };
 
         this.description = (description: string) => {
             if (typeof description !== "string") {
                 throw new Error(`Transmitted description to modules ${this.module} not type string`);
             }
-            job.description = description;
         };
 
         this.metrics = {
             query: (db_name: string, table_name: string, record_name: string) => {
-                const result = metrics_store.query(db_name, table_name, record_name);
-                if (result === undefined) {
-                    return;
-                }
-                return clone(result.json);
+                return;
             },
             queryRegExp:  (db_name: string, table_name: string, regexp: string) => {   
-                const result = metrics_store.queryRegExp(db_name, table_name, regexp);
-                if (result === undefined) {
-                    return;
-                }
-                return clone(result.json);
+                return;
             },
             queryRegExpAll: (db_name: string, table_name: string, regexp: string) => {
-                const record_list = metrics_store.queryRegExpAll(db_name, table_name, regexp);
-                if (record_list === undefined) {
-                    return;
-                }
-                const result = [];
-                for (const record of record_list) {
-                    result.push(clone(record.json));
-                }
-                return result;
+                return [];
             }
         };
 
         this.db = {
             keys: () => {
-                return store.keys;
+                return [];
             },
             request: (record_name:string, store_name?: string) => {
-                return store.request(record_name, store_name);
+                return;
             },
             exist: (record_name:string, store_name?: string) => {
-                return store.exist(record_name, store_name);
+                return false;
             },
             remove: (record_name:string) => {
-                return store.remove(record_name);
+                return;
             },
             update: (record_name:string, data: unknown) => {
-                return store.update(record_name, data);
+                return;
             }
         };
 

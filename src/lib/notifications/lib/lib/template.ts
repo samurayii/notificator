@@ -15,11 +15,48 @@ Handlebars.registerHelper("if_eq", (a, b, opts) => {
     }
 });
 
-Handlebars.registerHelper("timestamp", (time) => {
+Handlebars.registerHelper("timestamp", (time: number) => {
     if (typeof time !== "number") {
         return "";
     }
     return (new Date(time)).toString();
+});
+
+Handlebars.registerHelper("timestamp_human", (time: number, time_zone: number = 0) => {
+    if (typeof time !== "number") {
+        return "";
+    }
+    
+    const now = new Date(time);
+
+    let hours = now.getHours() + time_zone;
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    if (hours > 23) {
+        hours -= 24;
+    }
+
+    if (hours < 0) {
+        hours += 24;
+    }
+
+    let txt_hours = `${hours}`;
+    let txt_minutes = `${minutes}`;
+    let txt_seconds = `${seconds}`;
+
+    if (hours < 10) {
+        txt_hours = `0${hours}`;
+    }
+    if (minutes < 10) {
+        txt_minutes = `0${minutes}`;
+    }
+    if (seconds < 10) {
+        txt_seconds = `0${seconds}`;
+    }
+
+    return `${txt_hours}:${txt_minutes}:${txt_seconds}`;
+
 });
 
 export function checkTemplate (template_path: string): void {

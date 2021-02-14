@@ -33,6 +33,7 @@ export class HandlersJob implements IHandlersJob {
     private _starting_flag: boolean
     private _executing_flag: boolean
     private _status: string
+    private _description: string
 
     constructor (
         private readonly _id: string,
@@ -51,6 +52,7 @@ export class HandlersJob implements IHandlersJob {
         this._last_trigger = Date.now();
         this._status = "success";
         this._checked_status = "success";
+        this._description = this._config.description;
 
         this._job = new CronJob(this._config.cron.interval, () => {
             this.exec();
@@ -72,7 +74,10 @@ export class HandlersJob implements IHandlersJob {
     }
 
     get description (): string {
-        return this._config.description;
+        return this._description;
+    }
+    set description (description: string) {
+        this._description = description;
     }
 
     get status (): string {
@@ -106,7 +111,7 @@ export class HandlersJob implements IHandlersJob {
             global: this.global,
             staring: this._starting_flag,
             executing: this._executing_flag,
-            description: this._config.description,
+            description: this._description,
             time_zone: this._config.cron.time_zone,
             cron_interval: this._config.cron.interval
         }];
@@ -122,7 +127,17 @@ export class HandlersJob implements IHandlersJob {
 
         const context = new HandlersJobContext(this, this._metrics_store, this._temporary_store);
 
-        this._module.exec(context);
+        this._description = this._config.description;
+
+        try {
+            this._module.exec(context);
+        } catch (error) {
+            this._logger.error(`[Handlers] Error exec for ${chalk.gray(this._id)} module. ${error.message}`);
+            this._logger.log(error.stack, "debug");
+            this._status = "error";
+            this._checked_status = "error";
+            this._description = `Error: ${error.message}`;
+        }
 
         this._executing_flag = false;
 

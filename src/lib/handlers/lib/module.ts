@@ -1,6 +1,7 @@
 import { ILogger } from "logger-flx";
 import { IModule, IQueryRecord } from "../interfaces";
 import * as chalk from "chalk";
+import { HandlersJobCheckContext } from "./check-context";
 
 export class Module implements IModule {
 
@@ -18,14 +19,17 @@ export class Module implements IModule {
     }
 
     exec (context: unknown, query_record?: IQueryRecord, data?: unknown): void {
-        
-        try {
-            this._func.call(context, query_record, data);
-        } catch (error) {
-            this._logger.error(`[Handlers] Error exec for ${chalk.gray(this._id)} module. ${error.message}`);
-            this._logger.log(error.stack, "debug");
-        }
-        
+        this._func.call(context, query_record, data);
+    }
+
+    check () : void {
+        const context = new HandlersJobCheckContext();
+
+        this._logger.log(`[Handlers] Module ${chalk.gray(this._id)} checking ...`, "dev");
+
+        this._func.call(context, {}, {});
+
+        this._logger.log(`[Handlers] Module ${chalk.gray(this._id)} check complete`, "dev");
     }
 
 }

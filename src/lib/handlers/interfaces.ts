@@ -18,8 +18,8 @@ export interface IJobJson {
 
 export interface IHandlersJob {
     readonly id: string
-    readonly description: string
     readonly module: string
+    description: string
     status: string
     readonly staring: boolean
     readonly executing: boolean
@@ -37,9 +37,9 @@ export interface IHandlersJob {
 
 export interface IHandlersSubJob {
     readonly id: string
-    readonly description: string
     readonly module: string
     status: string
+    description: string
     readonly staring: boolean
     readonly executing: boolean
     readonly global: boolean
@@ -70,6 +70,7 @@ export interface IHandlersConfig {
 export interface IModule {
     readonly id: string
     exec: (context: unknown, query_record?: IQueryRecord, data?: unknown) => void
+    check:() => void
 }
 
 export interface IQuery {

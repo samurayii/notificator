@@ -25,9 +25,58 @@ export class UIHandlers {
     @Get("/", "web-server")
     async list (ctx: Context): Promise<void> {
 
+        let page_num = 0;
+        let count = 30;
+
+        if (ctx.request.query["page"] !== undefined) {
+            page_num = parseInt(ctx.request.query["page"]) - 1;
+        }
+        if (ctx.request.query["count"] !== undefined) {
+            count = parseInt(ctx.request.query["count"]);
+        }
+
+        const start = page_num * count;
+        const handlers_list = this._handlers.json;
+
+        if (handlers_list.length < start) {
+            ctx.body = "Not found";
+            ctx.status = 404;
+            return;
+        }
+
+        const pages_num = Math.ceil(handlers_list.length/count);
+        const pages = [];
+
+        const handlebars = handlers_list.slice(start, start + count);
+        let i = 0;
+
+        while (i < pages_num) {
+            const page = {
+                number: (i+1),
+                count: count,
+                active: false
+            };
+            if (page_num === i) {
+                page.active = true;
+            }
+            pages.push(page);
+            i++;
+        }
+
+        
+
+
+console.log({
+    prefix: `${ctx.koad.config.prefix.replace(/\/$/gi, "")}`,
+    pages: pages,
+    handlers: handlebars
+});
+        
+
         ctx.body = await getBody(this._template_path, {
             prefix: `${ctx.koad.config.prefix.replace(/\/$/gi, "")}`,
-            handlers: this._handlers.json
+            pages: pages,
+            handlers: handlebars
         });
         ctx.set("Content-Type", "text/html");
         ctx.status = 200;
