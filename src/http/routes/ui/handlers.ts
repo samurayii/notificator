@@ -63,16 +63,6 @@ export class UIHandlers {
             i++;
         }
 
-        
-
-
-console.log({
-    prefix: `${ctx.koad.config.prefix.replace(/\/$/gi, "")}`,
-    pages: pages,
-    handlers: handlebars
-});
-        
-
         ctx.body = await getBody(this._template_path, {
             prefix: `${ctx.koad.config.prefix.replace(/\/$/gi, "")}`,
             pages: pages,
