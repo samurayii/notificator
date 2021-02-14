@@ -9,6 +9,7 @@ export class HandlersJobContext {
     module: string
     job: string
     global: boolean
+    check: boolean
     success: () => void;
     description: (description: string) => void;
     warning: (data?: unknown) => void;
@@ -37,6 +38,7 @@ export class HandlersJobContext {
         this.job = job.id;
         this.module = job.module;
         this.global = job.global;
+        this.check = false;
 
         const store = temporary_store.get(job.id);
 

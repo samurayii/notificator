@@ -6,6 +6,7 @@ export class HandlersJobCheckContext {
     module: string
     job: string
     global: boolean
+    check: boolean
     success: () => void;
     description: (description: string) => void;
     warning: (data?: unknown) => void;
@@ -30,6 +31,7 @@ export class HandlersJobCheckContext {
         this.job = "check-id";
         this.module = "check-module";
         this.global = false;
+        this.check = true;
 
         this.success = (data: unknown = "") => {
             return;

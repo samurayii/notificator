@@ -70,7 +70,8 @@ update = "5s"                           # интервал обновления 
 | status | свойство | this.status | текущий статус задачи |
 | job | свойство | this.job | идентификатор задачи |
 | module | свойство | this.module | идентификатор модуля |
-| global | свойство | this.global | тип задачи |
+| global | свойство | this.global | флаг типа задачи (true или false) |
+| check | свойство | this.check | флаг проверки задачи (true или false) |
 | description | метод | this.description(новое описание) | задать новое описание задачи |
 | alert | метод | this.alert(текст ии объект) | активировать триггер **alert** и отослать сообщение |
 | warning | метод | this.warning(текст ии объект) | активировать триггер **warning** и отослать сообщение |
