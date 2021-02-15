@@ -143,7 +143,7 @@ export class HandlersSubJob implements IHandlersSubJob {
 
         this._executing_flag = true;
 
-        const context = new HandlersJobContext(this, this._metrics_store, this._temporary_store);
+        const context = new HandlersJobContext(this, this._metrics_store, this._temporary_store.get(this._id));
 
         this._description = this._config.description;
 
@@ -349,6 +349,7 @@ export class HandlersSubJob implements IHandlersSubJob {
         }
         this._starting_flag = false;
         this._job.stop();
+        this._temporary_store.clear(this._id);
         this._logger.log(`[Handlers] Sub job ${chalk.gray(this._id)} stopped`, "dev");
     }
 

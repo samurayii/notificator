@@ -125,7 +125,7 @@ export class HandlersJob implements IHandlersJob {
 
         this._executing_flag = true;
 
-        const context = new HandlersJobContext(this, this._metrics_store, this._temporary_store);
+        const context = new HandlersJobContext(this, this._metrics_store, this._temporary_store.get(this._id));
 
         this._description = this._config.description;
 

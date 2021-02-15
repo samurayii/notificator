@@ -1,5 +1,5 @@
 import * as clone from "clone";
-import { ITemporaryStore } from "../../temporary-store";
+import { IStore } from "../../temporary-store";
 import { IMetricsStore } from "../../metrics-store";
 import { IHandlersJob, IHandlersSubJob } from "../interfaces";
 
@@ -31,7 +31,7 @@ export class HandlersJobContext {
     constructor (
         job: IHandlersJob | IHandlersSubJob,
         metrics_store: IMetricsStore,
-        temporary_store: ITemporaryStore
+        store: IStore
     ) {
 
         this.status = job.status;
@@ -39,8 +39,6 @@ export class HandlersJobContext {
         this.module = job.module;
         this.global = job.global;
         this.check = false;
-
-        const store = temporary_store.get(job.id);
 
         this.success = (data: unknown = "") => {
             job.success(data);
